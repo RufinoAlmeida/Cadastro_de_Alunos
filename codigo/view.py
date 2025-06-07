@@ -1,170 +1,111 @@
 # importando SQLite
 import sqlite3 as lite
+
+# Conectando ao banco de dados
 try:
     con = lite.connect('cadastro_alunos.db')
-    print('Conexao com o banco de dados realizado com sucesso!')
+    print('Conexao com o banco de dados realizada com sucesso!')
 except lite.Error as e:
-    print('Erro ao concectar com o banco de dados:', e)
+    print('Erro ao conectar com o banco de dados:', e)
 
+# ---------------- TABELA DE CURSOS ----------------
 
-# Tabela de cursos --------------
-
-# Criar cursos (Inserir)
-
+# Criar curso (Create)
 def criar_curso(i):
     with con:
         cur = con.cursor()
-        query = 'INSERT INTO Cursos (nome, duracao, preco) VALUES (?,?,?)'
-        cur.execute(query,i)
+        query = 'INSERT INTO Cursos (nome, duracao, preco) VALUES (?, ?, ?)'
+        cur.execute(query, i)
 
-#criar_curso(['Python', 'Semanas', 50])
-
-# Ver todos os cursos (Selecionar R) CRUD
-
+# Ver cursos (Read)
 def ver_cursos():
     lista = []
     with con:
         cur = con.cursor()
         cur.execute('SELECT * FROM Cursos')
-        linha = cur.fetchall()
-
-        for i in linha:
+        linhas = cur.fetchall()
+        for i in linhas:
             lista.append(i)
     return lista
 
-print(ver_cursos())
-
-#Atualizar os Cursos (Update U) CRUD
-
+# Atualizar curso (Update)
 def atualizar_curso(i):
     with con:
         cur = con.cursor()
         query = 'UPDATE Cursos SET nome=?, duracao=?, preco=? WHERE id=?'
-        cur.execute(query,i)
+        cur.execute(query, i)
 
-l = ['Python', 'Duas Semanas', 50.0, 1]
-#atualizar_curso(l)
-
-# Deletar os Cursos (Delete D) CRUD
-
+# Deletar curso (Delete)
 def deletar_curso(i):
     with con:
         cur = con.cursor()
-        query = "DELETE FROM Cursos WHERE id=?"
-        cur.execute(query,i)
+        query = 'DELETE FROM Cursos WHERE id=?'
+        cur.execute(query, i)
 
-#deletar_curso([l])
+# ---------------- TABELA DE TURMAS ----------------
 
-# Tabela de Turmas --------------
-
-# Criar turmas (Inserir)
-
+# Criar turma (Create)
 def criar_turma(i):
     with con:
         cur = con.cursor()
-        query = "INSERT INTO Turmas (nome, cursos_nome, data_inicio) VALUES (?, ?, ?)"
-        cur.execute(query,i)
+        query = 'INSERT INTO Turmas (nome, turma_nome, data_inicio) VALUES (?, ?, ?)'
+        cur.execute(query, i)
 
-# Ver todas as turmas (Read R)
-def ver_cursos():
+# Ver turmas (Read)
+def ver_turmas():
     lista = []
     with con:
         cur = con.cursor()
         cur.execute('SELECT * FROM Turmas')
-        linha = cur.fetchall()
-
-        for i in linha:
+        linhas = cur.fetchall()
+        for i in linhas:
             lista.append(i)
     return lista
 
-# Atualizar as Turmas (Update U)
-
+# Atualizar turma (Update)
 def atualizar_turma(i):
     with con:
         cur = con.cursor()
-        query = 'UPDATE Turma SET nome =?, data_inicio=? WHERE id=?'
-        cur.execute(query,i)
+        query = 'UPDATE Turmas SET nome=?, data_inicio=? WHERE id=?'
+        cur.execute(query, i)
 
-# Deletar as Turmas (Delete D)
-
-def deletar_turmas(i):
+# Deletar turma (Delete)
+def deletar_turma(i):
     with con:
         cur = con.cursor()
         query = 'DELETE FROM Turmas WHERE id=?'
-        cur.execute(query,i)
-
-# Tabela de Alunos----------------
-
-# Criar Alunos (Inserir)
-
-def criar_alunos(i):
-    with con:
-        cur = con.cursor()
-        query = "INSERT INTO Alunos (nome, email, telefone, sexo, imagem, data_nascimento, cpf, turma_nome) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
         cur.execute(query, i)
 
-# Ver Alunos (Read R)
+# ---------------- TABELA DE ALUNOS ----------------
 
+# Criar aluno (Create)
+def criar_aluno(i):
+    with con:
+        cur = con.cursor()
+        query = 'INSERT INTO Alunos (nome, email, telefone, sexo, imagem, data_nascimento, cpf, turma_nome) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+        cur.execute(query, i)
+
+# Ver alunos (Read)
 def ver_alunos():
     lista = []
     with con:
         cur = con.cursor()
         cur.execute('SELECT * FROM Alunos')
-        linha = cur.fetchall()
-
-        for i in linha:
+        linhas = cur.fetchall()
+        for i in linhas:
             lista.append(i)
-    return lista 
+    return lista
 
-# Atualizar Alunos (Update U)
-
+# Atualizar aluno (Update)
 def atualizar_aluno(i):
     with con:
         cur = con.cursor()
-        query = "UPDATE Turma SET nome=?, email=?, telefone=?, sexo=?, imagem=?, data_nascimento=?, cpf=?, turma_nome=? WHERE id=?"
-        cur.execute(query,i)
+        query = 'UPDATE Alunos SET nome=?, email=?, telefone=?, sexo=?, imagem=?, data_nascimento=?, cpf=?, turma_nome=? WHERE id=?'
+        cur.execute(query, i)
 
-# Deletar Alunos (Delete D)
-
-def deletar_alunos(i):
+# Deletar aluno (Delete)
+def deletar_aluno(i):
     with con:
         cur = con.cursor()
-        query = "DELETE FROM Alunos WHERE id=?"
-        cur.execute(query,i)
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        query = 'DELETE FROM Alunos WHERE id=?'
+        cur.execute(query, i)
